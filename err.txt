@@ -1,0 +1,48 @@
+[2m23:11:40[22m [31m[1m[vite][22m[39m [35m[plugin:vite:vue][39m [31m[vue/compiler-sfc] Unexpected token, expected "," (126:22)
+
+D:/ztt/DemandMiner/painpoint-lighthouse/src/pages/index/index.vue
+124|      },
+125|      {
+126|        title: "把健身计划变成"像游戏一样"的每日任务",
+   |                        ^
+127|        desc: "总是三天打鱼两天晒网。希望用闯关、成就、奖励机制，把运动坚持下来。",
+128|        heat: 287,[39m
+at [36mpages/index/index.vue:126:22[39m
+[33m  71 |  
+  72 |  type DemandItem = {
+  73 |    id: string;
+     |   ^
+  74 |    title: string;
+  75 |    desc: string;[39m
+[2m23:11:49[22m [31m[1m[vite][22m[39m [35m[plugin:vite:vue][39m [31m[vue/compiler-sfc] Unexpected token, expected "," (126:22)
+
+D:/ztt/DemandMiner/painpoint-lighthouse/src/pages/index/index.vue
+124|      },
+125|      {
+126|        title: "把健身计划变成"像游戏一样"的每日任务",
+   |                        ^
+127|        desc: "总是三天打鱼两天晒网。希望用闯关、成就、奖励机制，把运动坚持下来。",
+128|        heat: 287,[39m
+at [36mpages/index/index.vue:126:22[39m
+[33m  71 |  
+  72 |  type DemandItem = {
+  73 |    id: string;
+     |   ^
+  74 |    title: string;
+  75 |    desc: string;[39m
+[2m23:12:35[22m [31m[1m[vite][22m[39m [35m[plugin:vite:vue][39m [31m[vue/compiler-sfc] Unexpected token, expected "," (150:22)
+
+D:/ztt/DemandMiner/painpoint-lighthouse/src/pages/index/index.vue
+148|      },
+149|      {
+150|        title: "旅行前一键生成"轻量行程"并自动避坑",
+   |                        ^
+151|        desc: "攻略太长看不完。希望按时间与预算给出简洁行程、避坑提示、必吃必去清单。",
+152|        heat: 376,[39m
+at [36mpages/index/index.vue:150:22[39m
+[33m  93 |  });
+  94 |  
+  95 |  const visibleList = computed(() => {
+     |       ^
+  96 |    const end = pageNo.value * pageSize;
+  97 |    return filteredAll.value.slice(0, end);[39m

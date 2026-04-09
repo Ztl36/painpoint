@@ -123,7 +123,7 @@ function createMockList(): DemandItem[] {
       category: "工具",
     },
     {
-      title: "把健身计划变成"像游戏一样"的每日任务",
+      title: "把健身计划变成「像游戏一样」的每日任务",
       desc: "总是三天打鱼两天晒网。希望用闯关、成就、奖励机制，把运动坚持下来。",
       heat: 287,
       category: "健康",
@@ -135,7 +135,7 @@ function createMockList(): DemandItem[] {
       category: "学习",
     },
     {
-      title: "把零散副业信息聚合成"赚钱路线图"",
+      title: "把零散副业信息聚合成「赚钱路线图」",
       desc: "看到很多副业教程但不知道从哪开始。希望按目标收入给出路线、资源与里程碑，并可复盘。",
       heat: 613,
       category: "赚钱",
@@ -147,7 +147,7 @@ function createMockList(): DemandItem[] {
       category: "社交",
     },
     {
-      title: "旅行前一键生成"轻量行程"并自动避坑",
+      title: "旅行前一键生成「轻量行程」并自动避坑",
       desc: "攻略太长看不完。希望按时间与预算给出简洁行程、避坑提示、必吃必去清单。",
       heat: 376,
       category: "娱乐",
