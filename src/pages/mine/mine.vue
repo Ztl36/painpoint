@@ -1,80 +1,68 @@
 <template>
-  <view class="min-h-screen bg-[#F8FAFC] pb-10 text-[#1E293B]">
-    <view class="relative overflow-hidden rounded-b-[40rpx] bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] px-6 pb-10 pt-7">
-      <view class="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/10" />
-      <view class="absolute -left-14 top-14 h-40 w-40 rounded-full bg-white/8" />
-
-      <view class="flex items-center gap-4">
-        <image class="h-16 w-16 rounded-full bg-white/30 ring-2 ring-white/60" :src="avatarUrl" mode="aspectFill" />
-        <view class="min-w-0 flex-1">
-          <view class="text-[34rpx] font-semibold text-white">{{ nickname }}</view>
-          <view class="mt-2 inline-flex items-center rounded-full bg-white/70 px-4 py-2 text-[24rpx] font-semibold text-[#0F172A]">
-            💎 {{ points }} 积分
-          </view>
+  <view class="page">
+    <!-- Profile Card -->
+    <view class="profile-card">
+      <view class="profile-left">
+        <image class="avatar" :src="avatarUrl" mode="aspectFill" />
+        <view class="profile-info">
+          <view class="nickname">{{ nickname }}</view>
+          <view class="points">{{ points }} 积分</view>
         </view>
       </view>
     </view>
 
-    <view class="px-6">
-      <view class="-mt-6 rounded-[24rpx] bg-white px-6 py-6 shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-        <view class="grid grid-cols-2 gap-5">
-          <view class="entry" @tap="tapMySubmissions">
-            <view class="icon i-blue">📌</view>
-            <view class="entry-title">我的提交</view>
-            <view class="entry-sub">查看我发布的需求</view>
-            <view class="badge">{{ submissionCount }}</view>
-          </view>
+    <!-- Stats Row -->
+    <view class="stats-card">
+      <view class="stat-item" @tap="tapMySubmissions">
+        <view class="stat-num">{{ submissionCount }}</view>
+        <view class="stat-label">我的提交</view>
+      </view>
+      <view class="stat-divider" />
+      <view class="stat-item" @tap="tapMySupports">
+        <view class="stat-num">{{ supportedCount }}</view>
+        <view class="stat-label">我的支持</view>
+      </view>
+      <view class="stat-divider" />
+      <view class="stat-item" @tap="tapSignIn">
+        <view class="stat-num">{{ signedIn ? "已签" : "+5" }}</view>
+        <view class="stat-label">{{ signedIn ? "已签到" : "积分签到" }}</view>
+      </view>
+    </view>
 
-          <view class="entry" @tap="tapMySupports">
-            <view class="icon i-purple">✨</view>
-            <view class="entry-title">我的支持</view>
-            <view class="entry-sub">我支持过的需求</view>
-            <view class="badge">{{ supportedCount }}</view>
-          </view>
-
-          <view class="entry sign" :class="signedIn ? 'entry-disabled' : ''" @tap="tapSignIn">
-            <view class="icon i-amber">💎</view>
-            <view class="entry-title">积分签到</view>
-            <view class="entry-sub">{{ signedIn ? '已签到 +5' : '每日签到得积分' }}</view>
-            <view class="tag" :class="signedIn ? 'tag-on' : 'tag-off'">{{ signedIn ? '已签到' : '+5' }}</view>
-          </view>
-
-          <view class="entry" @tap="tapAbout">
-            <view class="icon i-slate">i</view>
-            <view class="entry-title">关于我们</view>
-            <view class="entry-sub">了解项目介绍</view>
-            <view class="tag tag-off">›</view>
-          </view>
-        </view>
+    <!-- Recent Supported -->
+    <view class="section-card">
+      <view class="section-header">
+        <view class="section-title">近期支持过的需求</view>
+        <view class="section-tag">静态示例</view>
       </view>
 
-      <view class="mt-5 rounded-[24rpx] bg-white px-6 py-6 shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-        <view class="flex items-center justify-between">
-          <view class="text-[28rpx] font-semibold text-[#0F172A]">近期支持过的需求</view>
-          <view class="text-[22rpx] text-[#94A3B8]">静态示例</view>
-        </view>
-
-        <view class="mt-4 divide-y divide-[#E2E8F0]">
-          <view v-for="item in recentSupported" :key="item.id" class="py-4" @tap="openDetail(item.id)">
-            <view class="flex items-start justify-between gap-4">
-              <view class="min-w-0 flex-1">
-                <view class="truncate text-[28rpx] font-semibold text-[#0F172A]">{{ item.title }}</view>
-                <view class="mt-2 flex items-center gap-3">
-                  <view class="rounded-full bg-[#F1F5F9] px-3 py-1 text-[22rpx] font-medium text-[#64748B]">
-                    {{ item.category }}
-                  </view>
-                  <view class="text-[22rpx] font-semibold text-[#F59E0B]">🔥 {{ item.heat }}</view>
-                </view>
-              </view>
-              <view class="shrink-0 text-[26rpx] text-[#94A3B8]">›</view>
+      <view v-if="recentSupported.length > 0" class="recent-list">
+        <view
+          v-for="item in recentSupported"
+          :key="item.id"
+          class="recent-item"
+          @tap="openDetail(item.id)"
+        >
+          <view class="recent-info">
+            <view class="recent-title">{{ item.title }}</view>
+            <view class="recent-meta">
+              <view class="recent-tag">{{ item.category }}</view>
+              <view class="recent-heat">{{ item.heat }} 热度</view>
             </view>
           </view>
-        </view>
-
-        <view v-if="recentSupported.length === 0" class="mt-3 rounded-[20rpx] bg-[#F1F5F9] px-4 py-8 text-center text-[26rpx] text-[#64748B]">
-          暂无记录
+          <view class="recent-arrow">›</view>
         </view>
       </view>
+
+      <view v-else class="recent-empty">
+        <view class="recent-empty-text">暂无记录</view>
+      </view>
+    </view>
+
+    <!-- About -->
+    <view class="about-card" @tap="tapAbout">
+      <view class="about-text">关于我们</view>
+      <view class="about-arrow">›</view>
     </view>
   </view>
 </template>
@@ -112,7 +100,7 @@ const recentSupported = reactive<RecentItem[]>([
   },
   {
     id: "d_5",
-    title: "把零散副业信息聚合成“赚钱路线图”",
+    title: "把零散副业信息聚合成"赚钱路线图"",
     category: "赚钱",
     heat: 613,
   },
@@ -151,110 +139,207 @@ function tapAbout() {
 }
 
 function openDetail(id: string) {
-  showToast("打开详情（示例）");
   uni.navigateTo({ url: `/pages/detail/detail?id=${encodeURIComponent(id)}` });
 }
 </script>
 
 <style scoped>
-.entry {
-  position: relative;
-  border-radius: 20rpx;
+.page {
+  min-height: 100vh;
+  background: #f5f5f7;
+  padding-bottom: 40rpx;
+}
+
+/* Profile Card */
+.profile-card {
   background: #ffffff;
-  border: 2rpx solid #e2e8f0;
-  padding: 24rpx;
+  padding: 56rpx 40rpx 36rpx;
+}
+
+.profile-left {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 999px;
+  background: #f5f5f7;
+  flex-shrink: 0;
+}
+
+.profile-info {
   display: flex;
   flex-direction: column;
-  gap: 10rpx;
-  box-shadow: 0 10rpx 22rpx rgba(15, 23, 42, 0.05);
+  gap: 6rpx;
 }
 
-.entry-disabled {
-  opacity: 0.75;
-}
-
-.sign {
-  box-shadow: 0 16rpx 30rpx rgba(59, 130, 246, 0.14);
-}
-
-.icon {
-  width: 68rpx;
-  height: 68rpx;
-  border-radius: 18rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
+.nickname {
+  font-size: 34rpx;
   font-weight: 700;
-  color: #ffffff;
+  color: #1d1d1f;
+  letter-spacing: -0.5rpx;
 }
 
-.i-blue {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
-}
-
-.i-purple {
-  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-}
-
-.i-amber {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-}
-
-.i-slate {
-  background: linear-gradient(135deg, #0f172a, #334155);
-}
-
-.entry-title {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.entry-sub {
-  font-size: 22rpx;
-  color: #64748b;
-}
-
-.badge {
-  position: absolute;
-  right: 18rpx;
-  top: 18rpx;
-  min-width: 40rpx;
-  height: 40rpx;
-  padding: 0 12rpx;
-  border-radius: 999px;
-  background: #ef4444;
-  color: #ffffff;
-  font-size: 22rpx;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tag {
-  position: absolute;
-  right: 18rpx;
-  top: 18rpx;
-  width: 48rpx;
-  height: 48rpx;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.points {
   font-size: 24rpx;
+  color: #86868b;
+}
+
+/* Stats Card */
+.stats-card {
+  margin: 0 30rpx;
+  background: #ffffff;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.stat-num {
+  font-size: 36rpx;
   font-weight: 700;
+  color: #1d1d1f;
+  letter-spacing: -0.5rpx;
 }
 
-.tag-off {
-  background: #eff6ff;
-  color: #3b82f6;
+.stat-label {
+  font-size: 22rpx;
+  color: #86868b;
 }
 
-.tag-on {
-  background: #dcfce7;
-  color: #16a34a;
+.stat-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background: #d1d1d6;
+}
+
+/* Section Card */
+.section-card {
+  margin: 20rpx 30rpx 0;
+  background: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 32rpx 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.section-tag {
+  font-size: 22rpx;
+  color: #aeaeb2;
+}
+
+/* Recent List */
+.recent-list {
+  padding: 0 32rpx;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.recent-item:last-child {
+  border-bottom: none;
+}
+
+.recent-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.recent-title {
+  font-size: 28rpx;
+  color: #1d1d1f;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.recent-tag {
+  font-size: 22rpx;
+  color: #86868b;
+  background: #f5f5f7;
+  padding: 4rpx 14rpx;
+  border-radius: 999px;
+}
+
+.recent-heat {
+  font-size: 22rpx;
+  color: #86868b;
+}
+
+.recent-arrow {
+  font-size: 32rpx;
+  color: #d1d1d6;
+  flex-shrink: 0;
+  margin-left: 12rpx;
+}
+
+.recent-empty {
+  padding: 40rpx;
+  text-align: center;
+}
+
+.recent-empty-text {
+  font-size: 26rpx;
+  color: #aeaeb2;
+}
+
+/* About Card */
+.about-card {
+  margin: 20rpx 30rpx 0;
+  background: #ffffff;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 32rpx;
+}
+
+.about-text {
+  font-size: 30rpx;
+  color: #1d1d1f;
+  font-weight: 500;
+}
+
+.about-arrow {
+  font-size: 32rpx;
+  color: #d1d1d6;
 }
 </style>
-

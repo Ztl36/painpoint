@@ -1,40 +1,32 @@
 <template>
   <view
-    class="card rounded-[24rpx] bg-white px-6 py-5"
-    :class="cardPressed ? 'card-pressed' : 'card-rest'"
+    class="card"
     @touchstart="cardPressed = true"
     @touchend="cardPressed = false"
     @touchcancel="cardPressed = false"
     @tap="onCardTap"
   >
-    <view class="flex items-start justify-between gap-3">
-      <view class="min-w-0 flex-1">
-        <view class="text-[32rpx] font-semibold leading-6 text-[#0F172A]">{{ title }}</view>
-        <view class="mt-3 text-[26rpx] leading-6 text-[#64748B] clamp-2">{{ description }}</view>
-      </view>
-      <view class="shrink-0 rounded-full bg-[#FFFBEB] px-3 py-1.5 text-[22rpx] font-semibold text-[#F59E0B]">
-        <text class="mr-1">🔥</text>{{ hotValue }}
-      </view>
-    </view>
-
-    <view class="mt-3 flex items-center justify-between">
-      <view class="inline-flex items-center gap-2">
-        <view class="rounded-full bg-[#F1F5F9] px-3 py-1 text-[22rpx] font-medium text-[#64748B]">
-          {{ categoryLabel }}
+    <view class="card-inner">
+      <view class="card-left">
+        <view class="card-title">{{ title }}</view>
+        <view class="card-desc clamp-2">{{ description }}</view>
+        <view class="card-footer">
+          <view class="card-tag">{{ categoryLabel }}</view>
+          <view class="card-heat">{{ hotValue }} 热度</view>
         </view>
       </view>
-
-      <button
-        class="support-btn flex items-center gap-1 rounded-full border border-[#E2E8F0] bg-white px-4 py-2 text-[24rpx] font-semibold text-[#64748B]"
-        :class="pressed ? 'support-pressed support-on' : 'support-rest'"
-        @touchstart.stop="pressed = true"
-        @touchend.stop="pressed = false"
-        @touchcancel.stop="pressed = false"
-        @tap.stop="onSupportTap"
-      >
-        <text class="text-[26rpx]">✨</text>
-        <text>支持</text>
-      </button>
+      <view class="card-right">
+        <button
+          class="support-btn"
+          :class="pressed ? 'support-btn-pressed' : ''"
+          @touchstart.stop="pressed = true"
+          @touchend.stop="onSupportEnd"
+          @touchcancel.stop="pressed = false"
+          @tap.stop="onSupportTap"
+        >
+          {{ pressed ? "已支持" : "支持" }}
+        </button>
+      </view>
     </view>
   </view>
 </template>
@@ -63,10 +55,13 @@ const cardPressed = ref(false);
 
 function onSupportTap() {
   pressed.value = true;
+  emit("support", props.id);
+}
+
+function onSupportEnd() {
   setTimeout(() => {
     pressed.value = false;
-  }, 140);
-  emit("support", props.id);
+  }, 120);
 }
 
 function onCardTap() {
@@ -76,17 +71,42 @@ function onCardTap() {
 
 <style scoped>
 .card {
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  background: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  transition: opacity 160ms ease;
 }
 
-.card-rest {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  transform: scale(1);
+.card:active {
+  opacity: 0.92;
 }
 
-.card-pressed {
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
-  transform: scale(0.99);
+.card-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 32rpx 28rpx;
+  gap: 20rpx;
+}
+
+.card-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1d1d1f;
+  line-height: 1.4;
+  letter-spacing: -0.3rpx;
+}
+
+.card-desc {
+  font-size: 26rpx;
+  color: #86868b;
+  line-height: 1.6;
+  margin-top: 10rpx;
 }
 
 .clamp-2 {
@@ -96,24 +116,46 @@ function onCardTap() {
   overflow: hidden;
 }
 
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 14rpx;
+}
+
+.card-tag {
+  font-size: 22rpx;
+  color: #86868b;
+  background: #f5f5f7;
+  padding: 4rpx 14rpx;
+  border-radius: 999px;
+}
+
+.card-heat {
+  font-size: 22rpx;
+  color: #86868b;
+}
+
+.card-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
 .support-btn {
-  transform: scale(1);
-  transition: transform 140ms ease, background 140ms ease, color 140ms ease, border-color 140ms ease;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #007aff;
+  background: #f0f7ff;
+  border-radius: 999px;
+  padding: 10rpx 22rpx;
+  transition: all 140ms ease;
+  min-width: 0;
+  white-space: nowrap;
 }
 
-.support-pressed {
-  transform: scale(0.94);
-}
-
-.support-rest {
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.05);
-}
-
-.support-on {
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+.support-btn-pressed {
   color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 10px 22px rgba(139, 92, 246, 0.25);
+  background: #34c759;
 }
 </style>
-

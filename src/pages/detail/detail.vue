@@ -1,84 +1,68 @@
 <template>
-  <view class="min-h-screen bg-[#F8FAFC] pb-[180rpx] text-[#1E293B]">
-    <view class="relative overflow-hidden rounded-b-[40rpx] bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] px-6 pb-10 pt-6">
-      <view class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
-      <view class="absolute -left-12 top-12 h-36 w-36 rounded-full bg-white/8" />
-
-      <view class="glass rounded-[24rpx] px-6 py-6">
-        <view class="text-[34rpx] font-semibold leading-7 text-[#0F172A]">{{ demand.title }}</view>
-        <view class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-          <view class="rounded-full bg-[#F1F5F9] px-3 py-1 text-[22rpx] font-medium text-[#64748B]">
-            {{ demand.category }}
-          </view>
-          <view class="text-[22rpx] text-[#64748B]">发布者：{{ demand.author }}</view>
-          <view class="text-[22rpx] text-[#94A3B8]">·</view>
-          <view class="text-[22rpx] text-[#64748B]">{{ demand.createdAt }}</view>
-        </view>
-
-        <view class="mt-5 flex items-center justify-between">
-          <view class="text-[22rpx] text-[#64748B]">ID: {{ id || "-" }}</view>
-          <view class="rounded-full bg-white/60 px-4 py-1.5 text-[22rpx] font-semibold text-[#0F172A]">
-            🔥 {{ heatCount }}
-          </view>
-        </view>
+  <view class="page">
+    <!-- Header Card -->
+    <view class="header-card">
+      <view class="title">{{ demand.title }}</view>
+      <view class="meta">
+        <view class="meta-tag">{{ demand.category }}</view>
+        <view class="meta-text">{{ demand.author }}</view>
+        <view class="meta-sep">·</view>
+        <view class="meta-text">{{ demand.createdAt }}</view>
+      </view>
+      <view class="meta-bottom">
+        <view class="meta-id">ID: {{ id || "-" }}</view>
+        <view class="heat-badge">{{ heatCount }} 热度</view>
       </view>
     </view>
 
-    <view class="px-6">
-      <view class="-mt-6 rounded-[24rpx] bg-white px-6 py-6 shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-        <view class="section-title">具体场景</view>
-        <view class="mt-3 text-[26rpx] leading-7 text-[#1E293B]">{{ demand.scene }}</view>
-
-        <view v-if="demand.idea" class="mt-6">
-          <view class="section-title">功能设想</view>
-          <view class="mt-3 text-[26rpx] leading-7 text-[#1E293B]">{{ demand.idea }}</view>
-        </view>
-
-        <view class="mt-6">
-          <view class="section-title">付费意愿</view>
-          <view class="mt-3 inline-flex items-center rounded-full bg-[#EFF6FF] px-4 py-2 text-[22rpx] font-semibold text-[#3B82F6]">
-            {{ payLabel }}
-          </view>
-        </view>
+    <!-- Content Card -->
+    <view class="content-card">
+      <view class="section">
+        <view class="section-label">具体场景</view>
+        <view class="section-body">{{ demand.scene }}</view>
       </view>
 
-      <view class="mt-5 rounded-[24rpx] bg-white px-6 py-6 shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-        <view class="flex items-center justify-between">
-          <view class="text-[28rpx] font-semibold text-[#0F172A]">评论区</view>
-          <view class="text-[22rpx] text-[#94A3B8]">预留</view>
-        </view>
+      <view v-if="demand.idea" class="section">
+        <view class="section-label">功能设想</view>
+        <view class="section-body">{{ demand.idea }}</view>
+      </view>
 
-        <view class="mt-4 rounded-[20rpx] bg-[#F1F5F9] px-4 py-6">
-          <view class="flex items-center gap-4">
-            <view class="illu">
-              <view class="illu-a" />
-              <view class="illu-b" />
-              <view class="illu-c" />
-            </view>
-            <view class="min-w-0 flex-1">
-              <view class="text-[28rpx] font-semibold text-[#0F172A]">还没有评论</view>
-              <view class="mt-2 text-[24rpx] text-[#64748B]">先把你的经历写下来，给后来者一束光</view>
-            </view>
-          </view>
-        </view>
+      <view class="section">
+        <view class="section-label">付费意愿</view>
+        <view class="pay-badge">{{ payLabel }}</view>
       </view>
     </view>
 
-    <view class="fab-wrap">
-      <view class="mx-auto w-full max-w-[720rpx] px-6">
-        <view class="fab-panel rounded-[999px] bg-white px-4 py-3">
-          <button
-            class="fab-btn flex-1"
-            :class="supported ? 'fab-on' : 'fab-off'"
-            @tap="toggleSupport"
-          >
-            <view v-if="rippleKey" :key="rippleKey" class="ripple" />
-            <text class="mr-1">✨</text>{{ supported ? "已支持" : "我也遇到过" }}
-          </button>
-          <button class="follow-btn" :class="followed ? 'follow-on' : 'follow-off'" @tap="toggleFollow">
-            <text class="mr-1">{{ followed ? "★" : "☆" }}</text>{{ followed ? "已关注" : "关注" }}
-          </button>
-        </view>
+    <!-- Comment Card -->
+    <view class="comment-card">
+      <view class="comment-header">
+        <view class="comment-title">评论区</view>
+        <view class="comment-tag">预留</view>
+      </view>
+
+      <view class="comment-empty">
+        <view class="comment-empty-title">还没有评论</view>
+        <view class="comment-empty-sub">先把你的经历写下来，给后来者一束光</view>
+      </view>
+    </view>
+
+    <!-- Bottom Action Bar -->
+    <view class="action-bar">
+      <view class="action-panel">
+        <button
+          class="action-support"
+          :class="supported ? 'action-support-on' : ''"
+          @tap="toggleSupport"
+        >
+          {{ supported ? "已支持" : "我也遇到过" }}
+        </button>
+        <button
+          class="action-follow"
+          :class="followed ? 'action-follow-on' : ''"
+          @tap="toggleFollow"
+        >
+          {{ followed ? "已关注" : "关注" }}
+        </button>
       </view>
     </view>
   </view>
@@ -95,7 +79,6 @@ type PayValue = "free" | "one_time" | "sub";
 const supported = ref(false);
 const followed = ref(false);
 const baseHeat = ref(328);
-const rippleKey = ref(0);
 
 const demand = reactive({
   title: "一个能识别路边植物并告诉我能不能吃的App",
@@ -127,14 +110,9 @@ onLoad((query) => {
   if (qid) demand.title = `（示例）需求：${qid}`;
 });
 
-function goSubmit() {
-  uni.switchTab({ url: "/pages/submit/submit" });
-}
-
 function toggleSupport() {
   if (supported.value) return;
   supported.value = true;
-  rippleKey.value += 1;
   showToast("已支持 +1", 1200, "success");
 }
 
@@ -145,136 +123,212 @@ function toggleFollow() {
 </script>
 
 <style scoped>
-.section-title {
+.page {
+  min-height: 100vh;
+  background: #f5f5f7;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
+}
+
+/* Header Card */
+.header-card {
+  background: #ffffff;
+  padding: 40rpx 40rpx 32rpx;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1d1d1f;
+  line-height: 1.4;
+  letter-spacing: -0.5rpx;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: 16rpx;
+}
+
+.meta-tag {
+  font-size: 22rpx;
+  color: #86868b;
+  background: #f5f5f7;
+  padding: 4rpx 14rpx;
+  border-radius: 999px;
+}
+
+.meta-text {
+  font-size: 22rpx;
+  color: #86868b;
+}
+
+.meta-sep {
+  font-size: 22rpx;
+  color: #aeaeb2;
+}
+
+.meta-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.meta-id {
+  font-size: 22rpx;
+  color: #aeaeb2;
+}
+
+.heat-badge {
   font-size: 24rpx;
-  color: #64748b;
   font-weight: 600;
+  color: #86868b;
+  background: #f5f5f7;
+  padding: 6rpx 18rpx;
+  border-radius: 999px;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.72);
-  border: 2rpx solid rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(10px);
+/* Content Card */
+.content-card {
+  margin: 20rpx 30rpx 0;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 32rpx 36rpx;
 }
 
-.fab-wrap {
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section-label {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #86868b;
+  text-transform: uppercase;
+  letter-spacing: 0.5rpx;
+  margin-bottom: 12rpx;
+}
+
+.section-body {
+  font-size: 28rpx;
+  color: #1d1d1f;
+  line-height: 1.7;
+}
+
+.pay-badge {
+  display: inline-block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #007aff;
+  background: #f0f7ff;
+  padding: 8rpx 20rpx;
+  border-radius: 999px;
+}
+
+/* Comment Card */
+.comment-card {
+  margin: 20rpx 30rpx 0;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx 36rpx;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.comment-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.comment-tag {
+  font-size: 22rpx;
+  color: #aeaeb2;
+}
+
+.comment-empty {
+  background: #f5f5f7;
+  border-radius: 14rpx;
+  padding: 40rpx 28rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.comment-empty-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.comment-empty-sub {
+  font-size: 24rpx;
+  color: #86868b;
+}
+
+/* Action Bar */
+.action-bar {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding: 16rpx 30rpx calc(env(safe-area-inset-bottom) + 16rpx);
+  background: #f5f5f7;
 }
 
-.fab-panel {
-  box-shadow: 0 16rpx 36rpx rgba(15, 23, 42, 0.12);
-  border: 2rpx solid #e2e8f0;
+.action-panel {
+  background: #ffffff;
+  border-radius: 20rpx;
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  padding: 10rpx;
+  gap: 12rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
 }
 
-.fab-btn {
-  height: 88rpx;
-  border-radius: 999px;
+.action-support {
+  flex: 1;
+  height: 84rpx;
+  border-radius: 14rpx;
   font-size: 28rpx;
   font-weight: 600;
-  position: relative;
-  overflow: hidden;
+  color: #ffffff;
+  background: #007aff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.fab-off {
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  color: #ffffff;
+.action-support-on {
+  background: #34c759;
 }
 
-.fab-on {
-  background: linear-gradient(90deg, #8b5cf6, #3b82f6);
-  color: #ffffff;
-}
-
-.follow-btn {
-  width: 180rpx;
-  height: 88rpx;
-  border-radius: 999px;
+.action-follow {
+  width: 160rpx;
+  height: 84rpx;
+  border-radius: 14rpx;
   font-size: 26rpx;
   font-weight: 600;
+  color: #1d1d1f;
+  background: #f5f5f7;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.follow-off {
-  background: #f1f5f9;
-  color: #1e293b;
-}
-
-.follow-on {
-  background: #eff6ff;
-  color: #3b82f6;
-}
-
-.ripple {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 20rpx;
-  height: 20rpx;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.35);
-  transform: translate(-50%, -50%);
-  animation: ripple 560ms ease-out forwards;
-}
-
-@keyframes ripple {
-  0% {
-    opacity: 0.55;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(18);
-  }
-}
-
-.illu {
-  width: 120rpx;
-  height: 120rpx;
-  border-radius: 30rpx;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(139, 92, 246, 0.18));
-  position: relative;
-  overflow: hidden;
-}
-
-.illu-a {
-  position: absolute;
-  left: 16rpx;
-  top: 20rpx;
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 999px;
-  background: rgba(59, 130, 246, 0.35);
-}
-
-.illu-b {
-  position: absolute;
-  right: 14rpx;
-  top: 34rpx;
-  width: 36rpx;
-  height: 36rpx;
-  border-radius: 999px;
-  background: rgba(139, 92, 246, 0.35);
-}
-
-.illu-c {
-  position: absolute;
-  left: 26rpx;
-  bottom: 18rpx;
-  width: 70rpx;
-  height: 18rpx;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
+.action-follow-on {
+  color: #007aff;
+  background: #f0f7ff;
 }
 </style>

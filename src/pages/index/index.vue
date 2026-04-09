@@ -1,35 +1,30 @@
 <template>
-  <view class="min-h-screen bg-[#F8FAFC] px-6 pb-8 pt-4 text-[#1E293B]">
-    <view class="flex items-start justify-between gap-4">
-      <view class="min-w-0 flex-1">
-        <view class="text-[34rpx] font-semibold text-[#0F172A]">需求广场</view>
-        <view class="mt-2 text-[24rpx] text-[#64748B]">发现真实痛点，为好产品加一把火</view>
-      </view>
-      <button class="primary-btn px-5" @tap="goSubmit">去提交</button>
+  <view class="page">
+    <!-- Header -->
+    <view class="header">
+      <view class="header-title">需求广场</view>
+      <view class="header-sub">发现真实痛点，为好产品加一把火</view>
     </view>
 
-    <scroll-view scroll-x class="mt-5 w-full" :show-scrollbar="false">
-      <view class="flex items-center gap-5">
-        <view v-for="c in categories" :key="c" class="shrink-0" @tap="selectCategory(c)">
+    <!-- Category Filter -->
+    <view class="filter-wrap">
+      <scroll-view scroll-x :show-scrollbar="false">
+        <view class="filter-row">
           <view
-            class="text-[26rpx]"
-            :class="selectedCategory === c ? 'font-semibold text-[#3B82F6]' : 'text-[#64748B]'"
+            v-for="c in categories"
+            :key="c"
+            class="filter-item"
+            :class="selectedCategory === c ? 'filter-active' : ''"
+            @tap="selectCategory(c)"
           >
             {{ c }}
           </view>
-          <view
-            class="mt-3 h-[6rpx] rounded-full"
-            :class="
-              selectedCategory === c
-                ? 'w-[72rpx] bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6]'
-                : 'w-[44rpx] bg-transparent'
-            "
-          />
         </view>
-      </view>
-    </scroll-view>
+      </scroll-view>
+    </view>
 
-    <view class="mt-5 grid grid-cols-1 gap-5">
+    <!-- Card List -->
+    <view class="list">
       <DemandCard
         v-for="item in visibleList"
         :key="item.id"
@@ -43,16 +38,15 @@
         @open="onOpen"
       />
 
-      <view
-        v-if="visibleList.length === 0"
-        class="rounded-[24rpx] bg-white px-6 py-10 text-center text-[#64748B] shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-      >
-        <view class="text-[28rpx] font-semibold text-[#0F172A]">暂无内容</view>
-        <view class="mt-2 text-[24rpx]">换个分类看看</view>
+      <!-- Empty State -->
+      <view v-if="visibleList.length === 0" class="empty">
+        <view class="empty-title">暂无内容</view>
+        <view class="empty-sub">换个分类试试</view>
       </view>
 
-      <view v-else class="py-4 text-center text-[24rpx] text-[#94A3B8]">
-        <view v-if="isLoading">加载中...</view>
+      <!-- Load More -->
+      <view v-if="visibleList.length > 0" class="load-more">
+        <view v-if="isLoading">加载中…</view>
         <view v-else-if="noMore">没有更多了</view>
         <view v-else>上拉加载更多</view>
       </view>
@@ -129,7 +123,7 @@ function createMockList(): DemandItem[] {
       category: "工具",
     },
     {
-      title: "把健身计划变成“像游戏一样”的每日任务",
+      title: "把健身计划变成"像游戏一样"的每日任务",
       desc: "总是三天打鱼两天晒网。希望用闯关、成就、奖励机制，把运动坚持下来。",
       heat: 287,
       category: "健康",
@@ -141,7 +135,7 @@ function createMockList(): DemandItem[] {
       category: "学习",
     },
     {
-      title: "把零散副业信息聚合成“赚钱路线图”",
+      title: "把零散副业信息聚合成"赚钱路线图"",
       desc: "看到很多副业教程但不知道从哪开始。希望按目标收入给出路线、资源与里程碑，并可复盘。",
       heat: 613,
       category: "赚钱",
@@ -153,7 +147,7 @@ function createMockList(): DemandItem[] {
       category: "社交",
     },
     {
-      title: "旅行前一键生成“轻量行程”并自动避坑",
+      title: "旅行前一键生成"轻量行程"并自动避坑",
       desc: "攻略太长看不完。希望按时间与预算给出简洁行程、避坑提示、必吃必去清单。",
       heat: 376,
       category: "娱乐",
@@ -191,14 +185,6 @@ function onSupport(id: string) {
 }
 
 function onOpen(id: string) {
-  goDetail(id);
-}
-
-function goSubmit() {
-  uni.switchTab({ url: "/pages/submit/submit" });
-}
-
-function goDetail(id: string) {
   uni.navigateTo({ url: `/pages/detail/detail?id=${encodeURIComponent(id)}` });
 }
 
@@ -219,16 +205,92 @@ onReachBottom(() => {
 </script>
 
 <style scoped>
-.primary-btn {
-  height: 72rpx;
-  border-radius: 999px;
+.page {
+  min-height: 100vh;
+  background: #f5f5f7;
+}
+
+/* Header */
+.header {
+  background: #ffffff;
+  padding: 56rpx 40rpx 32rpx;
+}
+
+.header-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1d1d1f;
+  letter-spacing: -0.5rpx;
+}
+
+.header-sub {
   font-size: 26rpx;
-  font-weight: 600;
-  color: #ffffff;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  box-shadow: 0 10rpx 24rpx rgba(59, 130, 246, 0.22);
+  color: #86868b;
+  margin-top: 8rpx;
+}
+
+/* Category Filter */
+.filter-wrap {
+  background: #ffffff;
+  padding: 0 40rpx 24rpx;
+}
+
+.filter-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0;
+  white-space: nowrap;
+}
+
+.filter-item {
+  display: inline-block;
+  font-size: 28rpx;
+  color: #86868b;
+  padding: 8rpx 24rpx;
+  border-radius: 999px;
+  transition: all 200ms ease;
+  flex-shrink: 0;
+}
+
+.filter-active {
+  color: #ffffff;
+  background: #007aff;
+  font-weight: 600;
+}
+
+/* List */
+.list {
+  padding: 20rpx 30rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+/* Empty */
+.empty {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 80rpx 40rpx;
+  text-align: center;
+}
+
+.empty-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.empty-sub {
+  font-size: 26rpx;
+  color: #86868b;
+  margin-top: 8rpx;
+}
+
+/* Load More */
+.load-more {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 24rpx;
+  color: #aeaeb2;
 }
 </style>

@@ -1,14 +1,19 @@
 <template>
-  <view class="min-h-screen bg-[#F8FAFC] px-6 pb-8 pt-4 text-[#1E293B]">
-    <view class="text-[34rpx] font-semibold text-[#0F172A]">提交需求</view>
-    <view class="mt-2 text-[24rpx] text-[#64748B]">把痛点写下来，让它被看见</view>
+  <view class="page">
+    <!-- Header -->
+    <view class="header">
+      <view class="header-title">提交需求</view>
+      <view class="header-sub">把痛点写下来，让它被看见</view>
+    </view>
 
-    <view class="mt-5 rounded-[24rpx] bg-white px-6 py-6 shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+    <!-- Form Card -->
+    <view class="form-card">
+      <!-- 需求标题 -->
       <view class="field">
-        <view class="label">需求标题</view>
+        <view class="field-label">需求标题</view>
         <input
-          class="control"
-          :class="focused === 'title' ? 'control-focus' : ''"
+          class="field-input"
+          :class="focused === 'title' ? 'field-input-focus' : ''"
           :value="form.title"
           placeholder="我想要一个能……的App"
           placeholder-class="placeholder"
@@ -18,11 +23,12 @@
         />
       </view>
 
+      <!-- 具体场景 -->
       <view class="field">
-        <view class="label">具体场景</view>
+        <view class="field-label">具体场景</view>
         <textarea
-          class="control textarea"
-          :class="focused === 'scene' ? 'control-focus' : ''"
+          class="field-textarea"
+          :class="focused === 'scene' ? 'field-input-focus' : ''"
           :value="form.scene"
           placeholder="在什么时候/什么情况下你觉得特别需要？"
           placeholder-class="placeholder"
@@ -34,11 +40,12 @@
         />
       </view>
 
+      <!-- 功能设想 -->
       <view class="field">
-        <view class="label">功能设想（选填）</view>
+        <view class="field-label">功能设想（选填）</view>
         <textarea
-          class="control textarea"
-          :class="focused === 'idea' ? 'control-focus' : ''"
+          class="field-textarea"
+          :class="focused === 'idea' ? 'field-input-focus' : ''"
           :value="form.idea"
           placeholder="希望它有哪些具体功能？（选填）"
           placeholder-class="placeholder"
@@ -50,44 +57,47 @@
         />
       </view>
 
+      <!-- 付费意愿 -->
       <view class="field">
-        <view class="label">付费意愿</view>
-        <view class="mt-1 grid grid-cols-1 gap-3">
+        <view class="field-label">付费意愿</view>
+        <view class="pay-options">
           <view
             v-for="o in payOptions"
             :key="o.value"
-            class="pay-card"
-            :class="form.pay === o.value ? 'pay-card-on' : 'pay-card-off'"
+            class="pay-option"
+            :class="form.pay === o.value ? 'pay-option-on' : ''"
             @tap="form.pay = o.value"
           >
-            <view class="text-[28rpx] font-semibold" :class="form.pay === o.value ? 'text-[#0F172A]' : 'text-[#1E293B]'">
-              {{ o.label }}
-            </view>
-            <view class="check" :class="form.pay === o.value ? 'check-on' : 'check-off'">
-              <view class="dot" />
+            <view class="pay-option-text">{{ o.label }}</view>
+            <view class="pay-check" :class="form.pay === o.value ? 'pay-check-on' : ''">
+              <view v-if="form.pay === o.value" class="pay-check-dot" />
             </view>
           </view>
         </view>
       </view>
 
+      <!-- 分类标签 -->
       <view class="field">
-        <view class="label">分类标签</view>
+        <view class="field-label">分类标签</view>
         <picker mode="selector" :range="categories" :value="categoryIndex" @change="onCategoryChange">
-          <view class="control picker" :class="focused === 'category' ? 'control-focus' : ''" @tap="focused = 'category'">
-            <view class="text-[28rpx]" :class="form.category ? 'text-[#0F172A]' : 'text-[#94A3B8]'">
-              {{ form.category || '请选择分类' }}
+          <view class="field-picker" :class="focused === 'category' ? 'field-input-focus' : ''">
+            <view class="field-picker-text" :class="form.category ? '' : 'placeholder'">
+              {{ form.category || "请选择分类" }}
             </view>
-            <view class="text-[30rpx] text-[#94A3B8]">›</view>
+            <view class="field-picker-arrow">›</view>
           </view>
         </picker>
       </view>
     </view>
 
-    <button class="submit-btn mt-5 w-full" :disabled="submitting" @tap="submit">
-      {{ submitting ? "发布中…" : "发布需求" }}
-    </button>
+    <!-- Submit Button -->
+    <view class="submit-wrap">
+      <button class="submit-btn" :disabled="submitting" @tap="submit">
+        {{ submitting ? "发布中…" : "发布需求" }}
+      </button>
+    </view>
 
-    <view class="mt-4 text-center text-[22rpx] text-[#94A3B8]">示例页面：当前仅做静态交互与校验占位</view>
+    <view class="note">示例页面：当前仅做静态交互与校验占位</view>
   </view>
 </template>
 
@@ -167,116 +177,190 @@ async function submit() {
 </script>
 
 <style scoped>
+.page {
+  min-height: 100vh;
+  background: #f5f5f7;
+  padding-bottom: 60rpx;
+}
+
+/* Header */
+.header {
+  background: #ffffff;
+  padding: 56rpx 40rpx 32rpx;
+}
+
+.header-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1d1d1f;
+  letter-spacing: -0.5rpx;
+}
+
+.header-sub {
+  font-size: 26rpx;
+  color: #86868b;
+  margin-top: 8rpx;
+}
+
+/* Form Card */
+.form-card {
+  margin: 20rpx 30rpx 0;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 36rpx 36rpx 12rpx;
+}
+
+/* Field */
 .field {
+  margin-bottom: 32rpx;
+}
+
+.field-label {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #86868b;
+  text-transform: uppercase;
+  letter-spacing: 0.5rpx;
+  margin-bottom: 12rpx;
+}
+
+.field-input {
+  height: 88rpx;
+  background: #f5f5f7;
+  border-radius: 14rpx;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  color: #1d1d1f;
+  border: 2rpx solid transparent;
+  transition: border-color 160ms ease;
+}
+
+.field-input-focus {
+  border-color: #007aff;
+  background: #ffffff;
+}
+
+.field-textarea {
+  background: #f5f5f7;
+  border-radius: 14rpx;
+  padding: 20rpx 24rpx;
+  font-size: 30rpx;
+  color: #1d1d1f;
+  border: 2rpx solid transparent;
+  transition: border-color 160ms ease;
+  min-height: 200rpx;
+  line-height: 1.6;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.placeholder {
+  color: #aeaeb2;
+}
+
+/* Pay Options */
+.pay-options {
   display: flex;
   flex-direction: column;
   gap: 12rpx;
 }
 
-.field + .field {
-  margin-top: 20rpx;
-}
-
-.label {
-  font-size: 24rpx;
-  color: #64748b;
-  font-weight: 600;
-}
-
-.control {
-  height: 84rpx;
-  border-radius: 16rpx;
-  background: #f1f5f9;
-  padding: 0 24rpx;
-  font-size: 28rpx;
-  color: #0f172a;
+.pay-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f5f7;
+  border-radius: 14rpx;
+  padding: 24rpx 28rpx;
   border: 2rpx solid transparent;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition: all 160ms ease;
 }
 
-.control-focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 10rpx rgba(59, 130, 246, 0.16);
+.pay-option-on {
+  background: #f0f7ff;
+  border-color: #007aff;
 }
 
-.textarea {
-  height: auto;
-  min-height: 220rpx;
-  padding: 18rpx 24rpx;
+.pay-option-text {
+  font-size: 28rpx;
+  color: #1d1d1f;
+  font-weight: 500;
 }
 
-.placeholder {
-  color: #94a3b8;
-}
-
-.picker {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.pay-card {
-  border-radius: 20rpx;
-  padding: 22rpx 24rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f8fafc;
-  border: 2rpx solid #e2e8f0;
-}
-
-.pay-card-on {
-  background: #eff6ff;
-  border-color: #3b82f6;
-  box-shadow: 0 10rpx 24rpx rgba(59, 130, 246, 0.12);
-}
-
-.pay-card-off {
-  box-shadow: 0 6rpx 16rpx rgba(15, 23, 42, 0.04);
-}
-
-.check {
-  width: 40rpx;
-  height: 40rpx;
+.pay-check {
+  width: 36rpx;
+  height: 36rpx;
   border-radius: 999px;
+  border: 3rpx solid #d1d1d6;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid #cbd5e1;
+  transition: all 160ms ease;
+  flex-shrink: 0;
+}
+
+.pay-check-on {
+  border-color: #007aff;
+  background: #007aff;
+}
+
+.pay-check-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 999px;
   background: #ffffff;
 }
 
-.check-on {
-  border-color: #3b82f6;
-  background: #3b82f6;
+/* Picker */
+.field-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f5f7;
+  border-radius: 14rpx;
+  padding: 0 24rpx;
+  height: 88rpx;
+  border: 2rpx solid transparent;
+  transition: border-color 160ms ease;
 }
 
-.check-off {
-  border-color: #cbd5e1;
+.field-picker-text {
+  font-size: 30rpx;
+  color: #1d1d1f;
 }
 
-.dot {
-  width: 12rpx;
-  height: 12rpx;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+.field-picker-arrow {
+  font-size: 32rpx;
+  color: #aeaeb2;
+}
+
+/* Submit */
+.submit-wrap {
+  margin: 28rpx 30rpx 0;
 }
 
 .submit-btn {
+  width: 100%;
   height: 96rpx;
-  border-radius: 48rpx;
+  background: #007aff;
+  color: #ffffff;
+  border-radius: 14rpx;
   font-size: 30rpx;
   font-weight: 600;
-  color: #ffffff;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  box-shadow: 0 14rpx 30rpx rgba(59, 130, 246, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0.2rpx;
 }
 
 .submit-btn[disabled] {
-  opacity: 0.55;
+  opacity: 0.45;
+}
+
+.note {
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 22rpx;
+  color: #aeaeb2;
 }
 </style>
-
