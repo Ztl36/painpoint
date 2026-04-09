@@ -64,7 +64,6 @@
 import { computed, ref } from "vue";
 import { onReachBottom } from "@dcloudio/uni-app";
 import DemandCard from "../../components/DemandCard.vue";
-import { toast } from "../../utils/toast";
 
 type DemandCategory =
   | "全部"
@@ -103,6 +102,10 @@ const visibleList = computed(() => {
   const end = pageNo.value * pageSize;
   return filteredAll.value.slice(0, end);
 });
+
+function showToast(title: string, duration = 1800, icon: "success" | "none" = "none") {
+  uni.showToast({ title, duration, icon });
+}
 
 function selectCategory(c: DemandCategory) {
   if (selectedCategory.value === c) return;
@@ -184,7 +187,7 @@ function onSupport(id: string) {
   const item = allList.value.find((x) => x.id === id);
   if (!item) return;
   item.heat += 1;
-  toast.success("已支持 +1", 1200);
+  showToast("已支持 +1", 1200, "success");
 }
 
 function onOpen(id: string) {

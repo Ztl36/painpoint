@@ -94,7 +94,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
 import { withLoading } from "../../utils/request";
-import { toast } from "../../utils/toast";
 
 type PayValue = "free" | "one_time" | "sub";
 
@@ -122,6 +121,10 @@ const categoryIndex = computed(() => {
   return idx >= 0 ? idx : 0;
 });
 
+function showToast(title: string, duration = 1800, icon: "success" | "none" = "none") {
+  uni.showToast({ title, duration, icon });
+}
+
 function onTitleInput(e: any) {
   form.title = e?.detail?.value ?? "";
 }
@@ -142,18 +145,18 @@ function onCategoryChange(e: any) {
 async function submit() {
   if (submitting.value) return;
   if (!form.title.trim()) {
-    toast.info("请输入需求标题");
+    showToast("请输入需求标题");
     return;
   }
   if (!form.scene.trim()) {
-    toast.info("请输入具体场景");
+    showToast("请输入具体场景");
     return;
   }
 
   submitting.value = true;
   try {
     await withLoading(() => new Promise<void>((r) => setTimeout(r, 450)));
-    toast.success("提交成功");
+    showToast("提交成功", 1800, "success");
     setTimeout(() => {
       uni.navigateBack();
     }, 550);

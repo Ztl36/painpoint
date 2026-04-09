@@ -81,7 +81,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { toast } from "../../utils/toast";
 
 const avatarUrl = ref("/static/logo.png");
 const nickname = ref("灯塔探索者");
@@ -119,22 +118,26 @@ const recentSupported = reactive<RecentItem[]>([
   },
 ]);
 
+function showToast(title: string, duration = 1800, icon: "success" | "none" = "none") {
+  uni.showToast({ title, duration, icon });
+}
+
 function tapMySubmissions() {
-  toast.info(`我的提交：${submissionCount.value} 条（示例）`);
+  showToast(`我的提交：${submissionCount.value} 条（示例）`);
 }
 
 function tapMySupports() {
-  toast.info(`我的支持：${supportedCount.value} 条（示例）`);
+  showToast(`我的支持：${supportedCount.value} 条（示例）`);
 }
 
 function tapSignIn() {
   if (signedIn.value) {
-    toast.info("今天已签到");
+    showToast("今天已签到");
     return;
   }
   signedIn.value = true;
   points.value += 5;
-  toast.success("+5 积分");
+  showToast("+5 积分", 1800, "success");
 }
 
 function tapAbout() {
@@ -148,7 +151,7 @@ function tapAbout() {
 }
 
 function openDetail(id: string) {
-  toast.info("打开详情（示例）");
+  showToast("打开详情（示例）");
   uni.navigateTo({ url: `/pages/detail/detail?id=${encodeURIComponent(id)}` });
 }
 </script>

@@ -87,7 +87,6 @@
 <script setup lang="ts">
 import { onLoad } from "@dcloudio/uni-app";
 import { computed, reactive, ref } from "vue";
-import { toast } from "../../utils/toast";
 
 const id = ref<string>("");
 
@@ -118,6 +117,10 @@ const payLabel = computed(() => {
 
 const heatCount = computed(() => baseHeat.value + (supported.value ? 1 : 0));
 
+function showToast(title: string, duration = 1800, icon: "success" | "none" = "none") {
+  uni.showToast({ title, duration, icon });
+}
+
 onLoad((query) => {
   const qid = typeof query?.id === "string" ? query.id : "";
   id.value = qid;
@@ -132,12 +135,12 @@ function toggleSupport() {
   if (supported.value) return;
   supported.value = true;
   rippleKey.value += 1;
-  toast.success("已支持 +1", 1200);
+  showToast("已支持 +1", 1200, "success");
 }
 
 function toggleFollow() {
   followed.value = !followed.value;
-  toast.info(followed.value ? "已关注" : "已取消关注", 1400);
+  showToast(followed.value ? "已关注" : "已取消关注", 1400);
 }
 </script>
 
