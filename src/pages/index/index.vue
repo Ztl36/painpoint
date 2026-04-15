@@ -31,7 +31,7 @@
         :id="item.id"
         :title="item.title"
         :description="item.desc"
-        :hot-value="item.heat"
+        :heat="item.heat"
         :category="item.category"
         :category-label="item.category"
         @support="onSupport"
@@ -58,27 +58,12 @@
 import { computed, ref } from "vue";
 import { onReachBottom } from "@dcloudio/uni-app";
 import DemandCard from "../../components/DemandCard.vue";
+import { toast } from "../../utils/toast";
+import { CATEGORIES_WITH_ALL } from "../../constants/category";
+import type { DemandCategoryWithAll, DemandItem } from "../../types/demand";
 
-type DemandCategory =
-  | "全部"
-  | "工具"
-  | "生活"
-  | "学习"
-  | "健康"
-  | "娱乐"
-  | "赚钱"
-  | "社交";
-
-type DemandItem = {
-  id: string;
-  title: string;
-  desc: string;
-  heat: number;
-  category: Exclude<DemandCategory, "全部">;
-};
-
-const categories = ref<DemandCategory[]>(["全部", "工具", "生活", "学习", "健康", "娱乐", "赚钱", "社交"]);
-const selectedCategory = ref<DemandCategory>("全部");
+const categories = ref<DemandCategoryWithAll[]>([...CATEGORIES_WITH_ALL]);
+const selectedCategory = ref<DemandCategoryWithAll>("全部");
 
 const pageSize = 8;
 const pageNo = ref(1);
@@ -97,11 +82,7 @@ const visibleList = computed(() => {
   return filteredAll.value.slice(0, end);
 });
 
-function showToast(title: string, duration = 1800, icon: "success" | "none" = "none") {
-  uni.showToast({ title, duration, icon });
-}
-
-function selectCategory(c: DemandCategory) {
+function selectCategory(c: DemandCategoryWithAll) {
   if (selectedCategory.value === c) return;
   selectedCategory.value = c;
   pageNo.value = 1;
@@ -160,7 +141,7 @@ function createMockList(): DemandItem[] {
     },
   ];
 
-  const categoriesPool: Exclude<DemandCategory, "全部">[] = ["工具", "生活", "学习", "健康", "娱乐", "赚钱", "社交"];
+  const categoriesPool: DemandItem["category"][] = ["工具", "生活", "学习", "健康", "娱乐", "赚钱", "社交"];
   const list: DemandItem[] = [];
   for (let i = 0; i < 24; i += 1) {
     const s = samples[i % samples.length];
@@ -181,7 +162,7 @@ function onSupport(id: string) {
   const item = allList.value.find((x) => x.id === id);
   if (!item) return;
   item.heat += 1;
-  showToast("已支持 +1", 1200, "success");
+  toast.success("已支持 +1");
 }
 
 function onOpen(id: string) {
@@ -197,6 +178,10 @@ onReachBottom(() => {
 
   isLoading.value = true;
   setTimeout(() => {
+    if (noMore.value) {
+      isLoading.value = false;
+      return;
+    }
     pageNo.value += 1;
     isLoading.value = false;
     if (visibleList.value.length >= filteredAll.value.length) noMore.value = true;

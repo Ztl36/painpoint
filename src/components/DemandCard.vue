@@ -1,9 +1,6 @@
 <template>
   <view
     class="card"
-    @touchstart="cardPressed = true"
-    @touchend="cardPressed = false"
-    @touchcancel="cardPressed = false"
     @tap="onCardTap"
   >
     <view class="card-inner">
@@ -12,7 +9,7 @@
         <view class="card-desc clamp-2">{{ description }}</view>
         <view class="card-footer">
           <view class="card-tag">{{ categoryLabel }}</view>
-          <view class="card-heat">{{ hotValue }} 热度</view>
+          <view class="card-heat">{{ heat }} 热度</view>
         </view>
       </view>
       <view class="card-right">
@@ -38,7 +35,7 @@ type Props = {
   id: string;
   title: string;
   description: string;
-  hotValue: number;
+  heat: number;
   category: string;
   categoryLabel: string;
 };
@@ -51,7 +48,6 @@ const emit = defineEmits<{
 }>();
 
 const pressed = ref(false);
-const cardPressed = ref(false);
 
 function onSupportTap() {
   pressed.value = true;

@@ -103,23 +103,22 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
-import { withLoading } from "../../utils/request";
+import { withLoading } from "../../utils/loading";
+import { toast } from "../../utils/toast";
+import { CATEGORIES } from "../../constants/category";
+import { PAY_OPTIONS } from "../../types/demand";
+import type { SubmitForm } from "../../types/demand";
 
-type PayValue = "free" | "one_time" | "sub";
+/** 提交页分类不含"全部" */
+const categories = ref([...CATEGORIES]);
 
-const categories = ref(["全部", "工具", "生活", "学习", "健康", "娱乐", "赚钱", "社交"]);
+const payOptions = ref(PAY_OPTIONS);
 
-const payOptions = ref([
-  { label: "不愿意", value: "free" as const },
-  { label: "一次性买断", value: "one_time" as const },
-  { label: "订阅或内购", value: "sub" as const },
-]);
-
-const form = reactive({
+const form = reactive<SubmitForm>({
   title: "",
   scene: "",
   idea: "",
-  pay: "free" as PayValue,
+  pay: "free",
   category: "生活",
 });
 
@@ -131,42 +130,38 @@ const categoryIndex = computed(() => {
   return idx >= 0 ? idx : 0;
 });
 
-function showToast(title: string, duration = 1800, icon: "success" | "none" = "none") {
-  uni.showToast({ title, duration, icon });
+function onTitleInput(e: { detail: { value: string } }) {
+  form.title = e.detail.value ?? "";
 }
 
-function onTitleInput(e: any) {
-  form.title = e?.detail?.value ?? "";
+function onSceneInput(e: { detail: { value: string } }) {
+  form.scene = e.detail.value ?? "";
 }
 
-function onSceneInput(e: any) {
-  form.scene = e?.detail?.value ?? "";
+function onIdeaInput(e: { detail: { value: string } }) {
+  form.idea = e.detail.value ?? "";
 }
 
-function onIdeaInput(e: any) {
-  form.idea = e?.detail?.value ?? "";
-}
-
-function onCategoryChange(e: any) {
-  const idx = Number(e?.detail?.value ?? 0);
+function onCategoryChange(e: { detail: { value: number } }) {
+  const idx = Number(e.detail.value ?? 0);
   form.category = categories.value[idx] ?? "全部";
 }
 
 async function submit() {
   if (submitting.value) return;
   if (!form.title.trim()) {
-    showToast("请输入需求标题");
+    toast.info("请输入需求标题");
     return;
   }
   if (!form.scene.trim()) {
-    showToast("请输入具体场景");
+    toast.info("请输入具体场景");
     return;
   }
 
   submitting.value = true;
   try {
     await withLoading(() => new Promise<void>((r) => setTimeout(r, 450)));
-    showToast("提交成功", 1800, "success");
+    toast.success("提交成功");
     setTimeout(() => {
       uni.navigateBack();
     }, 550);

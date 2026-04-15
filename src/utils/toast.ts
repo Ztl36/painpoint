@@ -10,13 +10,8 @@ const DEFAULT_DURATION = 1800;
 function show(type: ToastType, options: ToastOptions) {
   const duration = options.duration ?? DEFAULT_DURATION;
   const title = options.title;
-
-  if (type === "success") {
-    uni.showToast({ title, icon: "success", duration });
-    return;
-  }
-
-  uni.showToast({ title, icon: "none", duration });
+  const icon = type === "success" ? "success" : "none";
+  uni.showToast({ title, icon, duration });
 }
 
 export const toast = {
