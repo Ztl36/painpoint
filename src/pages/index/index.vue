@@ -192,7 +192,7 @@ onReachBottom(() => {
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f7;
+  background: #ffffff; /* 纯白背景，Airbnb风格 */
 }
 
 /* Header */
@@ -204,13 +204,13 @@ onReachBottom(() => {
 .header-title {
   font-size: 34rpx;
   font-weight: 700;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   letter-spacing: -0.5rpx;
 }
 
 .header-sub {
   font-size: 26rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
   margin-top: 8rpx;
 }
 
@@ -230,7 +230,7 @@ onReachBottom(() => {
 .filter-item {
   display: inline-block;
   font-size: 28rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
   padding: 8rpx 24rpx;
   border-radius: 999px;
   transition: all 200ms ease;
@@ -239,7 +239,7 @@ onReachBottom(() => {
 
 .filter-active {
   color: #ffffff;
-  background: #007aff;
+  background: #ff385c; /* Airbnb Rausch Red */
   font-weight: 600;
 }
 
@@ -262,12 +262,12 @@ onReachBottom(() => {
 .empty-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
 }
 
 .empty-sub {
   font-size: 26rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
   margin-top: 8rpx;
 }
 
@@ -276,6 +276,6 @@ onReachBottom(() => {
   text-align: center;
   padding: 40rpx 0;
   font-size: 24rpx;
-  color: #aeaeb2;
+  color: rgba(0, 0, 0, 0.24); /* Airbnb禁用状态 */
 }
 </style>

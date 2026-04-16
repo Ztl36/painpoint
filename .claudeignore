@@ -1,0 +1,11 @@
+# .claudeignore 示例
+node_modules/
+dist/
+build/
+*.map
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+# 屏蔽掉你项目中任何巨大的静态 JSON 或日志文件
+*.log
+mock-data.json

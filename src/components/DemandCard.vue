@@ -68,13 +68,16 @@ function onCardTap() {
 <style scoped>
 .card {
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   overflow: hidden;
-  transition: opacity 160ms ease;
+  transition: all 200ms ease;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 6px, rgba(0, 0, 0, 0.1) 0px 4px 8px; /* Airbnb三层面影 */
 }
 
 .card:active {
-  opacity: 0.92;
+  opacity: 0.95;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px; /* Airbnb悬停阴影 */
+  transform: translateY(-1px);
 }
 
 .card-inner {
@@ -93,14 +96,14 @@ function onCardTap() {
 .card-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   line-height: 1.4;
   letter-spacing: -0.3rpx;
 }
 
 .card-desc {
   font-size: 26rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
   line-height: 1.6;
   margin-top: 10rpx;
 }
@@ -121,15 +124,15 @@ function onCardTap() {
 
 .card-tag {
   font-size: 22rpx;
-  color: #86868b;
-  background: #f5f5f7;
+  color: #6a6a6a; /* Airbnb次要文本色 */
+  background: #f2f2f2; /* Airbnb表面灰色 */
   padding: 4rpx 14rpx;
-  border-radius: 999px;
+  border-radius: 28rpx; /* Airbnb徽章圆角14px = 28rpx */
 }
 
 .card-heat {
   font-size: 22rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 .card-right {
@@ -141,9 +144,9 @@ function onCardTap() {
 .support-btn {
   font-size: 24rpx;
   font-weight: 600;
-  color: #007aff;
-  background: #f0f7ff;
-  border-radius: 999px;
+  color: #ff385c; /* Airbnb Rausch Red */
+  background: #f2f2f2; /* Airbnb表面灰色 */
+  border-radius: 16rpx; /* Airbnb按钮圆角8px = 16rpx */
   padding: 10rpx 22rpx;
   transition: all 140ms ease;
   min-width: 0;
@@ -152,6 +155,6 @@ function onCardTap() {
 
 .support-btn-pressed {
   color: #ffffff;
-  background: #34c759;
+  background: #ff385c; /* Airbnb Rausch Red */
 }
 </style>

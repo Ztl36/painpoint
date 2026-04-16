@@ -125,7 +125,7 @@ function toggleFollow() {
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f7;
+  background: #ffffff; /* 纯白背景 */
   padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
 }
 
@@ -138,7 +138,7 @@ function toggleFollow() {
 .title {
   font-size: 34rpx;
   font-weight: 700;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   line-height: 1.4;
   letter-spacing: -0.5rpx;
 }
@@ -153,20 +153,20 @@ function toggleFollow() {
 
 .meta-tag {
   font-size: 22rpx;
-  color: #86868b;
-  background: #f5f5f7;
+  color: #6a6a6a; /* Airbnb次要文本色 */
+  background: #f2f2f2; /* Airbnb表面灰色 */
   padding: 4rpx 14rpx;
-  border-radius: 999px;
+  border-radius: 28rpx; /* Airbnb徽章圆角14px = 28rpx */
 }
 
 .meta-text {
   font-size: 22rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 .meta-sep {
   font-size: 22rpx;
-  color: #aeaeb2;
+  color: rgba(0, 0, 0, 0.24); /* Airbnb禁用状态 */
 }
 
 .meta-bottom {
@@ -178,24 +178,25 @@ function toggleFollow() {
 
 .meta-id {
   font-size: 22rpx;
-  color: #aeaeb2;
+  color: rgba(0, 0, 0, 0.24); /* Airbnb禁用状态 */
 }
 
 .heat-badge {
   font-size: 24rpx;
   font-weight: 600;
-  color: #86868b;
-  background: #f5f5f7;
+  color: #6a6a6a; /* Airbnb次要文本色 */
+  background: #f2f2f2; /* Airbnb表面灰色 */
   padding: 6rpx 18rpx;
-  border-radius: 999px;
+  border-radius: 28rpx; /* Airbnb徽章圆角14px = 28rpx */
 }
 
 /* Content Card */
 .content-card {
   margin: 20rpx 30rpx 0;
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   padding: 32rpx 36rpx;
+  box-shadow: rgba(0, 0, 0, 0.02) 0rpx 0rpx 0rpx 1rpx, rgba(0, 0, 0, 0.04) 0rpx 2rpx 6rpx, rgba(0, 0, 0, 0.1) 0rpx 4rpx 8rpx; /* Airbnb三层面影 */
 }
 
 .section {
@@ -209,7 +210,7 @@ function toggleFollow() {
 .section-label {
   font-size: 22rpx;
   font-weight: 600;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
   text-transform: uppercase;
   letter-spacing: 0.5rpx;
   margin-bottom: 12rpx;
@@ -217,7 +218,7 @@ function toggleFollow() {
 
 .section-body {
   font-size: 28rpx;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   line-height: 1.7;
 }
 
@@ -225,8 +226,8 @@ function toggleFollow() {
   display: inline-block;
   font-size: 24rpx;
   font-weight: 600;
-  color: #007aff;
-  background: #f0f7ff;
+  color: #ff385c; /* Airbnb Rausch Red */
+  background: rgba(255, 56, 92, 0.1); /* 品牌红色10%透明度 */
   padding: 8rpx 20rpx;
   border-radius: 999px;
 }
@@ -235,8 +236,9 @@ function toggleFollow() {
 .comment-card {
   margin: 20rpx 30rpx 0;
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   padding: 28rpx 36rpx;
+  box-shadow: rgba(0, 0, 0, 0.02) 0rpx 0rpx 0rpx 1rpx, rgba(0, 0, 0, 0.04) 0rpx 2rpx 6rpx, rgba(0, 0, 0, 0.1) 0rpx 4rpx 8rpx; /* Airbnb三层面影 */
 }
 
 .comment-header {
@@ -249,17 +251,17 @@ function toggleFollow() {
 .comment-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
 }
 
 .comment-tag {
   font-size: 22rpx;
-  color: #aeaeb2;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 .comment-empty {
-  background: #f5f5f7;
-  border-radius: 14rpx;
+  background: #f2f2f2; /* Airbnb表面灰色 */
+  border-radius: 28rpx; /* Airbnb徽章圆角14px = 28rpx */
   padding: 40rpx 28rpx;
   display: flex;
   flex-direction: column;
@@ -269,12 +271,12 @@ function toggleFollow() {
 .comment-empty-title {
   font-size: 28rpx;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
 }
 
 .comment-empty-sub {
   font-size: 24rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 /* Action Bar */
@@ -284,51 +286,54 @@ function toggleFollow() {
   right: 0;
   bottom: 0;
   padding: 16rpx 30rpx calc(env(safe-area-inset-bottom) + 16rpx);
-  background: #f5f5f7;
+  background: #ffffff; /* 纯白背景 */
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06); /* 顶部轻微阴影 */
 }
 
 .action-panel {
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   display: flex;
   align-items: center;
   padding: 10rpx;
   gap: 12rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  box-shadow: rgba(0, 0, 0, 0.02) 0rpx 0rpx 0rpx 1rpx, rgba(0, 0, 0, 0.04) 0rpx 2rpx 6rpx, rgba(0, 0, 0, 0.1) 0rpx 4rpx 8rpx; /* Airbnb三层面影 */
 }
 
 .action-support {
   flex: 1;
   height: 84rpx;
-  border-radius: 14rpx;
+  border-radius: 16rpx; /* Airbnb按钮圆角8px = 16rpx */
   font-size: 28rpx;
   font-weight: 600;
   color: #ffffff;
-  background: #007aff;
+  background: #222222; /* Airbnb深色按钮 */
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 200ms ease;
 }
 
 .action-support-on {
-  background: #34c759;
+  background: #34c759; /* 保持绿色表示已支持状态 */
 }
 
 .action-follow {
   width: 160rpx;
   height: 84rpx;
-  border-radius: 14rpx;
+  border-radius: 16rpx; /* Airbnb按钮圆角8px = 16rpx */
   font-size: 26rpx;
   font-weight: 600;
-  color: #1d1d1f;
-  background: #f5f5f7;
+  color: #222222; /* Airbnb近黑色文本 */
+  background: #f2f2f2; /* Airbnb表面灰色 */
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 200ms ease;
 }
 
 .action-follow-on {
-  color: #007aff;
-  background: #f0f7ff;
+  color: #ff385c; /* Airbnb Rausch Red */
+  background: rgba(255, 56, 92, 0.1); /* 品牌红色10%透明度 */
 }
 </style>

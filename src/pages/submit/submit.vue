@@ -201,8 +201,9 @@ async function submit() {
 .form-card {
   margin: 20rpx 30rpx 0;
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   padding: 36rpx 36rpx 12rpx;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 6px, rgba(0, 0, 0, 0.1) 0px 4px 8px; /* Airbnb三层面影 */
 }
 
 /* Field */
@@ -213,7 +214,7 @@ async function submit() {
 .field-label {
   font-size: 24rpx;
   font-weight: 600;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
   text-transform: uppercase;
   letter-spacing: 0.5rpx;
   margin-bottom: 12rpx;
@@ -221,26 +222,26 @@ async function submit() {
 
 .field-input {
   height: 88rpx;
-  background: #f5f5f7;
+  background: #f2f2f2; /* Airbnb表面灰色 */
   border-radius: 14rpx;
   padding: 0 24rpx;
   font-size: 30rpx;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   border: 2rpx solid transparent;
   transition: border-color 160ms ease;
 }
 
 .field-input-focus {
-  border-color: #007aff;
+  border-color: #ff385c; /* Airbnb Rausch Red */
   background: #ffffff;
 }
 
 .field-textarea {
-  background: #f5f5f7;
+  background: #f2f2f2; /* Airbnb表面灰色 */
   border-radius: 14rpx;
   padding: 20rpx 24rpx;
   font-size: 30rpx;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   border: 2rpx solid transparent;
   transition: border-color 160ms ease;
   min-height: 200rpx;
@@ -250,7 +251,7 @@ async function submit() {
 }
 
 .placeholder {
-  color: #aeaeb2;
+  color: rgba(0, 0, 0, 0.24); /* Airbnb禁用状态 */
 }
 
 /* Pay Options */
@@ -264,7 +265,7 @@ async function submit() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f5f5f7;
+  background: #f2f2f2; /* Airbnb表面灰色 */
   border-radius: 14rpx;
   padding: 24rpx 28rpx;
   border: 2rpx solid transparent;
@@ -272,13 +273,13 @@ async function submit() {
 }
 
 .pay-option-on {
-  background: #f0f7ff;
-  border-color: #007aff;
+  background: #ffffff;
+  border-color: #ff385c; /* Airbnb Rausch Red */
 }
 
 .pay-option-text {
   font-size: 28rpx;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   font-weight: 500;
 }
 
@@ -286,7 +287,7 @@ async function submit() {
   width: 36rpx;
   height: 36rpx;
   border-radius: 999px;
-  border: 3rpx solid #d1d1d6;
+  border: 3rpx solid #c1c1c1; /* Airbnb边框灰色 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,8 +296,8 @@ async function submit() {
 }
 
 .pay-check-on {
-  border-color: #007aff;
-  background: #007aff;
+  border-color: #ff385c; /* Airbnb Rausch Red */
+  background: #ff385c; /* Airbnb Rausch Red */
 }
 
 .pay-check-dot {
@@ -311,7 +312,7 @@ async function submit() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f5f5f7;
+  background: #f2f2f2; /* Airbnb表面灰色 */
   border-radius: 14rpx;
   padding: 0 24rpx;
   height: 88rpx;
@@ -321,12 +322,12 @@ async function submit() {
 
 .field-picker-text {
   font-size: 30rpx;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
 }
 
 .field-picker-arrow {
   font-size: 32rpx;
-  color: #aeaeb2;
+  color: rgba(0, 0, 0, 0.24); /* Airbnb禁用状态 */
 }
 
 /* Submit */
@@ -337,15 +338,20 @@ async function submit() {
 .submit-btn {
   width: 100%;
   height: 96rpx;
-  background: #007aff;
+  background: #222222; /* Airbnb深色按钮 */
   color: #ffffff;
-  border-radius: 14rpx;
+  border-radius: 16rpx; /* Airbnb按钮圆角8px = 16rpx */
   font-size: 30rpx;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: 0.2rpx;
+  transition: background-color 200ms ease;
+}
+
+.submit-btn:active {
+  background-color: #ff385c; /* 悬停时变为品牌红色 */
 }
 
 .submit-btn[disabled] {
@@ -356,6 +362,6 @@ async function submit() {
   text-align: center;
   margin-top: 20rpx;
   font-size: 22rpx;
-  color: #aeaeb2;
+  color: rgba(0, 0, 0, 0.24); /* Airbnb禁用状态 */
 }
 </style>

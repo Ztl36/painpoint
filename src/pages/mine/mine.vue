@@ -146,7 +146,7 @@ function openDetail(id: string) {
 <style scoped>
 .page {
   min-height: 100vh;
-  background: #f5f5f7;
+  background: #ffffff; /* 纯白背景 */
   padding-bottom: 40rpx;
 }
 
@@ -179,23 +179,24 @@ function openDetail(id: string) {
 .nickname {
   font-size: 34rpx;
   font-weight: 700;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   letter-spacing: -0.5rpx;
 }
 
 .points {
   font-size: 24rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 /* Stats Card */
 .stats-card {
   margin: 0 30rpx;
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   display: flex;
   align-items: center;
   padding: 28rpx 0;
+  box-shadow: rgba(0, 0, 0, 0.02) 0rpx 0rpx 0rpx 1rpx, rgba(0, 0, 0, 0.04) 0rpx 2rpx 6rpx, rgba(0, 0, 0, 0.1) 0rpx 4rpx 8rpx; /* Airbnb三层面影 */
 }
 
 .stat-item {
@@ -209,27 +210,28 @@ function openDetail(id: string) {
 .stat-num {
   font-size: 36rpx;
   font-weight: 700;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
   letter-spacing: -0.5rpx;
 }
 
 .stat-label {
   font-size: 22rpx;
-  color: #86868b;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 .stat-divider {
   width: 1rpx;
   height: 60rpx;
-  background: #d1d1d6;
+  background: #e5e5e5; /* Airbnb分割线 */
 }
 
 /* Section Card */
 .section-card {
   margin: 20rpx 30rpx 0;
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 40rpx; /* Airbnb卡片圆角20px = 40rpx */
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.02) 0rpx 0rpx 0rpx 1rpx, rgba(0, 0, 0, 0.04) 0rpx 2rpx 6rpx, rgba(0, 0, 0, 0.1) 0rpx 4rpx 8rpx; /* Airbnb三层面影 */
 }
 
 .section-header {
@@ -243,12 +245,12 @@ function openDetail(id: string) {
 .section-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #222222; /* Airbnb近黑色文本 */
 }
 
 .section-tag {
   font-size: 22rpx;
-  color: #aeaeb2;
+  color: #6a6a6a; /* Airbnb次要文本色 */
 }
 
 /* Recent List */
